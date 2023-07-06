@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Drinks Page   
+{% endblock %}
+
+{% block content %}
+    <h1>Mis bebidas favoritas</h1>
+    <ul>
+    {% for i in drinks %}
+        <li>{{ i }}</li>
+    {% endfor %}
+    </ul>
+{% endblock %}

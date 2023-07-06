@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css')}}">
+    <title> {% block tittle %} {% endblock %} </title>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('home') }}">Home</a></li>
+            <li><a href="{{ url_for('contact') }}">Contatc</a></li>
+            <li><a href="{{ url_for('saludo', name='Juan') }}">Saludo</a></li>
+            <li><a href="{{ url_for('drinks') }}">Drinks</a></li>
+            {% if user %}
+            <li><a href="#">Logout</a></li>
+            {% else %}
+            <li><a href="#">Login</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+
+    {% block content %}
+        
+    {% endblock %}
+
+    <footer>
+        <p>Copyright @Juandelcar</p>
+    </footer>
+</body>
+</html>
