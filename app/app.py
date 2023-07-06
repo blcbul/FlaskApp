@@ -1,6 +1,8 @@
-from flask import Flask, render_template
+from flask import (Flask, render_template, request, redirect, url_for, flash )
+from db.categories import Category 
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'My Secret Key'
 
 @app.route("/")
 @app.route("/home")
@@ -20,7 +22,28 @@ def saludo(name):
 def drinks():
     drinks = ["agua", "jugo", "limonada", "coca", "sprite"]
     return render_template('drinks.html', drinks=drinks)
-  
+
+@app.route('/categories/')
+def categories():
+    cats = Category.get_all()
+    return render_template('categories.html', cats=cats)
+
+@app.route('/categories/create/', methods=('GET', 'POST'))
+def create_cat():
+    if request.method == 'POST':
+        #Guardar
+        category = request.form['category']
+        description = request.form['description']
+        if not category:
+            flash('Debes ingresar una categoría')
+        elif not description:
+            flash('Debes ingresar una descripción')
+        else:
+            cat = Category(category, description)
+            cat.save()
+        return redirect(url_for('categories'))
+    return render_template('create_cat.html')
+
 @app.errorhandler(404)
 def page_not_found(error):
     return render_template('404.html')

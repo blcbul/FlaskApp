@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Crear Nueva Categoría
+{% endblock %}
+
+{% block content %}
+{% for message in get_flashed_messages() %}
+<p>{{ message }}</p>
+{% endfor %}
+<form method="POST">
+    <label for="category">Categoría</label>
+    <input type="text"
+            name="category"
+            id="category"
+            value="{{ request.form['category'] }}"><br>
+    <label for="description">Descripción</label>
+    <input type="text"
+            name="description"
+            id="description"
+            value="{{ request.form['descrition'] }}"><br>
+    <input type="submit" value="Guardar" class="btn"> 
+</form>
+{% endblock %}
