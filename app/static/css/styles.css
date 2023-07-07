@@ -80,3 +80,16 @@ nav li a:hover {
     color: white;
   }
 
+a {
+    text-decoration: none
+
+}
+.fa-pencil {
+    color: green ;
+    
+}
+
+.fa-trash {
+    color: red ;
+    margin-left: 15px;
+}
