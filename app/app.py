@@ -1,5 +1,10 @@
 from flask import (Flask, render_template, request, redirect, url_for, flash )
+
+#Imports from DB
 from db.categories import Category 
+
+#Imports from Forms
+from forms.category_forms import CreateCategory
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'My Secret Key'
@@ -30,19 +35,14 @@ def categories():
 
 @app.route('/categories/create/', methods=('GET', 'POST'))
 def create_cat():
-    if request.method == 'POST':
-        #Guardar
-        category = request.form['category']
-        description = request.form['description']
-        if not category:
-            flash('Debes ingresar una categoría')
-        elif not description:
-            flash('Debes ingresar una descripción')
-        else:
-            cat = Category(category, description)
-            cat.save()
+    form = CreateCategory()
+    if form.validate_on_submit():
+        category = form.category.data
+        description = form.decription.data
+        cat = category(category, description)
+        cat.save()
         return redirect(url_for('categories'))
-    return render_template('create_cat.html')
+    return render_template('create_cat.html', form=form)
 
 @app.route('/categories/<int:id>/update/')
 def update_cat(id):
