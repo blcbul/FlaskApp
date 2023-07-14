@@ -10,10 +10,14 @@ from views.error_views import error_views
 
 from views.category_views import category_views
 
+from views.user_views import user_views
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'My Secret Key'
 
 app.register_blueprint(home_views)
+
+app.register_blueprint(user_views)
 
 app.register_blueprint(category_views)
 
